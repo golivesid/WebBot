@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html land="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="vieport"
+          content="width=device-width, user-scalable=no, inital-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shop</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <h1>Онлайн магазин</h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png">
+        <p>Основной текст для магазина</p>
+        <button id="buy">Купить</button>
+    </div>
+    <form id="form">
+        <input type="text" placeholder="Имя" id="user_name">
+        <input type="text" placeholder="Email" id="user_email">
+        <input type="text" placeholder="Телефон" id="user_phone">
+        <div id="error"></div>
+        <button id="order">Оформить</button>
+    </form>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let tg = window.Telegram.WebApp;
+        let buy = document.getElementById("buy");
+        let order = document.getElementById("order");
+        tg.expand();
+
+        buy.addEventListener("click", ()  => {
+            document.getElementById("main").style.display = "none";
+            document.getElementById("form").style.display = "block";
+            document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
+        });
+
+        order.addEventListener("click", () => {
+            document.getElementById("error").innerText='';
+            let name = document.getElementById("user_name").value;
+            let email = document.getElementById("user_email").value;
+            let phone = document.getElementById("user_phone").value;
+            if(name.lenght < 2) {
+                document.getElementById("error").innerText = 'Ошибка в имени';
+                return;
+            }
+            if(email.lenght < 5) {
+                document.getElementById("error").innerText = 'Ошибка в email';
+                return;
+            }
+            if(phone.lenght < 5) {
+                document.getElementById("error").innerText = 'Ошибка в номере телефона';
+                return;
+            }
+
+            let data = {
+                name: name,
+                email: email,
+                phone: phone
+            }
+            tg.sendData(JSON.stringify(data));
+
+            tg.close();
+        });
+    </script>
+</body>
+</html>
