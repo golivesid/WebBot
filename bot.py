@@ -1,16 +1,18 @@
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('7756911670:AAFpJK8RQRDSIUBGhV51z-NWhBVsRgd8KeQ')
+bot = telebot.TeleBot('***')
 #dp = Dispatcher(bot)
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.KeyboardButton('Открыть веб страницу', url='https://itproger.com'))
+    webApp = types.WebAppInfo('https://tokotaty.github.io/WebBot/')
+    markup.add(types.KeyboardButton('Открыть веб страницу', web_app=webApp))
     bot.reply_to(message, 'Привет мой друг!', reply_markup = markup)
 
+#@bot.message_handler(conte=['start'])
 
 
 
