@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import json
 
 load_dotenv()
-bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
+bot = telebot.TeleBot(os.getenv("6866329408:AAE-uV2sKyCnlCQnZbL9GH_DcdrzsF9omas"))
 #dp = Dispatcher(bot)
 
 
